@@ -1,6 +1,7 @@
 name: Scrape comsumption info from electrical provider
 
 on:
+  workflow_dispatch:
   schedule:
     - cron:  '30 9 * * *'
 
