@@ -20,4 +20,11 @@ jobs:
       env:
         ELECTRICAL_PROVIDER_USERNAME: ${{ secrets.ELECTRICAL_PROVIDER_USER }}
         ELECTRICAL_PROVIDER_PASSWORD: ${{ secrets.ELECTRICAL_PROVIDER_PWD }}
-      run: mvn -B compile exec:java -Dexec.mainClass="scrape.App" -Dexec.args="$ELECTRICAL_PROVIDER_USERNAME $ELECTRICAL_PROVIDER_PWD naturgy.csv" --file pom.xml
+      run: mvn -B compile exec:java -Dexec.mainClass="scrape.App" -Dexec.args="$ELECTRICAL_PROVIDER_USERNAME $ELECTRICAL_PROVIDER_PASSWORD naturgy.csv" --file pom.xml
+    - name: Commit and push 
+      run: |-
+        git config user.name "Automated"
+        git config user.email "actions@users.noreply.github.com"
+        git add naturgy.csv
+        git commit -m "New data" || exit 0
+        git push
