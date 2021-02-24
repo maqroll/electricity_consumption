@@ -16,8 +16,8 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: 1.8
+    - name: Build
       env:
         ELECTRICAL_PROVIDER_USERNAME: ${{ secrets.ELECTRICAL_PROVIDER_USER }}
         ELECTRICAL_PROVIDER_PASSWORD: ${{ secrets.ELECTRICAL_PROVIDER_PWD }}
-    - name: Build
       run: mvn -B compile exec:java -Dexec.mainClass="scrape.App" -Dexec.args="$ELECTRICAL_PROVIDER_USERNAME $ELECTRICAL_PROVIDER_PWD naturgy.csv" --file pom.xml
