@@ -28,3 +28,11 @@ jobs:
         git add naturgy.csv
         git commit -m "New data" || exit 0
         git push
+    - name: Update temperatures        
+      run: |-
+        curl 'https://www.meteogalicia.gal/observacion/estacionshistorico/downloadcsv.action' --compressed -H 'Content-Type: application/x-www-form-urlencoded' -H 'Pragma: no-cache' -H 'Cache-Control: no-cache' --data "idIntervalo=3&idEstacion=19005&dataIni=16%2F12%2F19&dataFin=`date +%d%%2F%m%%2F%y`&idsMedida=30186&btn_exportar_csv=Res" -o temperatures.csv
+        git config user.name "Automated"
+        git config user.email "actions@users.noreply.github.com"
+        git add temperatures.csv
+        git commit -m "Latest temperatures" || exit 0
+        git push
