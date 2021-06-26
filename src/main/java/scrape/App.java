@@ -49,6 +49,9 @@ public class App {
               case "Energía Activa Punta":
                 res = "Punta";
                 break;
+              case "Energía Activa Llano":
+                res = "Llano";
+                break;
               default:
                 throw new IllegalStateException("Value " + v + " not recognized");
             }
