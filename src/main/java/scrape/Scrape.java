@@ -9,18 +9,16 @@ import java.util.Deque;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
+@Slf4j
 public class Scrape {
-  private static Logger logger = LoggerFactory.getLogger(Scrape.class);
-
   private static final String DOMAIN = "https://areaclientes.comercializadoraregulada.es";
   private static final String URL_PREFIX = DOMAIN + "/ovh-web";
   private static final String LOGIN_URL = URL_PREFIX + "/Login.gas";
@@ -41,7 +39,7 @@ public class Scrape {
 
   public void searchInvoicesAfter(LocalDate maxDatePresent)
       throws IOException, InvalidFormatException {
-    logger.info("Retrieving invoices with max date {}", maxDatePresent.toString());
+    log.info("Retrieving invoices with max date {}", maxDatePresent.toString());
     authCookie = login();
 
     showInvoicesForm(authCookie);
@@ -58,13 +56,13 @@ public class Scrape {
     for (Map.Entry<LocalDate, String> invoiceAndDate : invoices) {
       // process invoices with emission date at least 20 days later than max present date
       if (maxDatePresent == null || maxDatePresent.plusDays(20).isBefore(invoiceAndDate.getKey())) {
-        logger.info("Processing invoice with date {}", invoiceAndDate.getKey().toString());
+        log.info("Processing invoice with date {}", invoiceAndDate.getKey().toString());
         String csv = getInvoiceDetail(authCookie, invoiceAndDate.getValue());
         if (csv != null) { // from most recent to last recent
           invoicesCsvUrl.addLast(csv);
         }
       } else {
-        logger.warn("Ignoring invoice with date {}", invoiceAndDate.getKey().toString());
+        log.warn("Ignoring invoice with date {}", invoiceAndDate.getKey().toString());
       }
     }
   }
