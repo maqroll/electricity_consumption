@@ -16,7 +16,7 @@ jobs:
       run: |-
         curl -o a.json.gz 'https://api.esios.ree.es/archives/70/download_json?locale=es' -H 'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:95.0) Gecko/20100101 Firefox/95.0' -H 'Accept: application/json; application/vnd.esios-api-v2+json' -H 'Accept-Language: en-US,en;q=0.5' -H 'Accept-Encoding: gzip, deflate, br' -H 'Authorization: Token token="request_your_personal_token_sending_email_to_consultasios@ree.es"' -H 'Origin: https://www.esios.ree.es' -H 'DNT: 1' -H 'Connection: keep-alive' -H 'Sec-Fetch-Dest: empty' -H 'Sec-Fetch-Mode: cors' -H 'Sec-Fetch-Site: same-site' -H 'Pragma: no-cache' -H 'Cache-Control: no-cache' -H 'TE: trailers'
         gunzip a.json.gz
-        cat a.json | /Users/luis/tools/jq -r ".PVPC[]|[.Dia,.Hora,.PCB,.TEUPCB]|@csv" >> pvcp.csv
+        cat a.json | jq -r ".PVPC[]|[.Dia,.Hora,.PCB,.TEUPCB]|@csv" >> pvcp.csv
         git config user.name "Automated"
         git config user.email "actions@users.noreply.github.com"
         git add pvcp.csv
