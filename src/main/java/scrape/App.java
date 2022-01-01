@@ -3,16 +3,20 @@ package scrape;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+
+import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 
 // Minimal scraper for retrieving invoice detail for MY gas provider.
 // Striving for simplicity.
+@Slf4j
 public class App {
 
   public static void main(String[] args) {
     try {
       run(args);
     } catch (IOException | InvalidFormatException e) {
+      log.error("Scrape failed.",e);
       System.exit(1);
     }
   }
