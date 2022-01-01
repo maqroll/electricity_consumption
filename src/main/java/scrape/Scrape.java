@@ -26,7 +26,7 @@ public class Scrape {
       URL_PREFIX + "/SearchInvoiceAndConsumptionList.gas";
 
   private static final String JSESSIONID_COOKIE = "JSESSIONID_OV";
-  public static final int TIMEOUT = 60000;
+  public static final int TIMEOUT = 180000;
   private final String user;
   private final String password;
   private final Deque<String> invoicesCsvUrl = new LinkedList<>();
