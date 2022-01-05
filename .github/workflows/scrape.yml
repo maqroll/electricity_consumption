@@ -15,7 +15,8 @@ jobs:
     - name: Set up JDK 
       uses: actions/setup-java@v2
       with:
-        java-version: 11
+        java-version: '11'
+        distribution: 'zulu'
     - name: Build
       env:
         ELECTRICAL_PROVIDER_USERNAME: ${{ secrets.ELECTRICAL_PROVIDER_USER }}
