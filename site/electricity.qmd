@@ -1,0 +1,200 @@
+---
+title: "Electricity"
+execute:
+  echo: false
+format: 
+  html:
+    page-layout: full
+---
+
+```{ojs}
+//| output: true
+horizonChart
+```
+
+```{ojs}
+import { chart as horizonChart } with {
+  data,
+  overlap,
+  step
+} from "@maqroll/d3-horizon-chart"
+```
+
+```{ojs}
+overlap = 3
+```
+
+```{ojs}
+step = 60
+```
+
+```{ojs}
+d3 = require("d3@6")
+math = require( 'https://cdn.jsdelivr.net/gh/stdlib-js/math@umd/browser.js' )
+simpleStatistics = require("simple-statistics@7.5.0")
+```
+
+```{ojs}
+parseTime = d3.timeParse("%Y/%m/%d")
+```
+
+```{ojs}
+raw_data = d3.csv(
+  `https://raw.githubusercontent.com/maqroll/electricity_consumption/main/naturgy.csv`,
+  function(d) {
+    return {
+      date: parseTime(d.date),
+      from: +d.from,
+      type: d.type,
+      kWh: +d.kWh,
+      unit_price: +d.unit_price,
+      amount: +d.amount
+    };
+  }
+)
+```
+
+```{ojs}
+temperatures = d3.csv(
+  `https://raw.githubusercontent.com/maqroll/electricity_consumption/main/temperatures.csv`,
+  function(d) {
+    return {
+      date: new Date(d.Data),
+      value: +d.Valor
+    };
+  }
+)
+```
+
+```{ojs}
+data = [
+  {
+    key: "Mean temperatures",
+    values: temperatures
+  },
+  {
+    key: "KwH per day",
+    values: Array.from(
+      d3.rollup(raw_data, v => d3.sum(v, d => d.kWh), d => d.date),
+      ([key, value]) => ({ date: key, value: value })
+    )
+  },
+  {
+    key: "KwH Peak per day",
+    values: Array.from(
+      d3.rollup(
+        d3.filter(raw_data, e => e.type == "Punta"),
+        v => d3.sum(v, d => d.kWh),
+        d => d.date
+      ),
+      ([key, value]) => ({ date: key, value: value })
+    )
+  },
+  {
+    key: "KwH Plain per day",
+    values: Array.from(
+      d3.rollup(
+        d3.filter(raw_data, e => e.type == "Llano"),
+        v => d3.sum(v, d => d.kWh),
+        d => d.date
+      ),
+      ([key, value]) => ({ date: key, value: value })
+    )
+  },
+  {
+    key: "KwH Valley per day",
+    values: Array.from(
+      d3.rollup(
+        d3.filter(raw_data, e => e.type == "Valle"),
+        v => d3.sum(v, d => d.kWh),
+        d => d.date
+      ),
+      ([key, value]) => ({ date: key, value: value })
+    )
+  },
+  {
+    key: "Cost per day",
+    values: Array.from(
+      d3.rollup(raw_data, v => d3.sum(v, d => d.amount), d => d.date),
+      ([key, value]) => ({ date: key, value: value })
+    )
+  },
+  {
+    key: "Cost Peak per day",
+    values: Array.from(
+      d3.rollup(
+        d3.filter(raw_data, e => e.type == "Punta"),
+        v => d3.sum(v, d => d.amount),
+        d => d.date
+      ),
+      ([key, value]) => ({ date: key, value: value })
+    )
+  },
+  {
+    key: "Cost Plain per day",
+    values: Array.from(
+      d3.rollup(
+        d3.filter(raw_data, e => e.type == "Llano"),
+        v => d3.sum(v, d => d.amount),
+        d => d.date
+      ),
+      ([key, value]) => ({ date: key, value: value })
+    )
+  },
+  {
+    key: "Cost Valley per day",
+    values: Array.from(
+      d3.rollup(
+        d3.filter(raw_data, e => e.type == "Valle"),
+        v => d3.sum(v, d => d.amount),
+        d => d.date
+      ),
+      ([key, value]) => ({ date: key, value: value })
+    )
+  },
+  {
+    key: "Mean unit price per day (x100)",
+    values: d3.map(
+      d3.rollups(
+        raw_data,
+        v => (d3.sum(v, d => d.amount) / d3.sum(v, d => d.kWh)) * 100,
+        d => d.date
+      ),
+      e => ({ date: e[0], value: e[1] })
+    )
+  },
+  {
+    key: "Mean Peak unit price per day (x100)",
+    values: d3.map(
+      d3.rollups(
+        d3.filter(raw_data, e => e.type == "Punta"),
+        v => (d3.sum(v, d => d.amount) / d3.sum(v, d => d.kWh)) * 100,
+        d => d.date
+      ),
+      e => ({ date: e[0], value: e[1] })
+    )
+  },
+  {
+    key: "Mean Plain unit price per day (x100)",
+    values: d3.map(
+      d3.rollups(
+        d3.filter(raw_data, e => e.type == "Llano"),
+        v => (d3.sum(v, d => d.amount) / d3.sum(v, d => d.kWh)) * 100,
+        d => d.date
+      ),
+      e => ({ date: e[0], value: e[1] })
+    )
+  },
+  {
+    key: "Mean Valley unit price per day (x100)",
+    values: d3.map(
+      d3.rollups(
+        d3.filter(raw_data, e => e.type == "Valle"),
+        v => (d3.sum(v, d => d.amount) / d3.sum(v, d => d.kWh)) * 100,
+        d => d.date
+      ),
+      e => ({ date: e[0], value: e[1] })
+    )
+  }
+]
+```
