@@ -30,8 +30,6 @@ step = 60
 
 ```{ojs}
 d3 = require("d3@6")
-math = require( 'https://cdn.jsdelivr.net/gh/stdlib-js/math@umd/browser.js' )
-simpleStatistics = require("simple-statistics@7.5.0")
 ```
 
 ```{ojs}
