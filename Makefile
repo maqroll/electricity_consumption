@@ -24,3 +24,7 @@ energy:
 
 test:
 	$(call q, $(call kwh_unit,2021/12/12))
+
+preview:
+	quarto preview site/electricity.qmd
+
