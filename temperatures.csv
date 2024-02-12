@@ -1516,5 +1516,6 @@
 "1","2024-02-07 00:00:00.0","TA_AVG_1.5m","Temperatura media a 1.5m","14.6","ºC"
 "1","2024-02-08 00:00:00.0","TA_AVG_1.5m","Temperatura media a 1.5m","13.3","ºC"
 "1","2024-02-09 00:00:00.0","TA_AVG_1.5m","Temperatura media a 1.5m","11.1","ºC"
-"9","2024-02-10 00:00:00.0","TA_AVG_1.5m","Temperatura media a 1.5m","-9999.0","ºC"
-"9","2024-02-11 00:00:00.0","TA_AVG_1.5m","Temperatura media a 1.5m","-9999.0","ºC"
+"1","2024-02-10 00:00:00.0","TA_AVG_1.5m","Temperatura media a 1.5m","8.0","ºC"
+"1","2024-02-11 00:00:00.0","TA_AVG_1.5m","Temperatura media a 1.5m","9.5","ºC"
+"1","2024-02-12 00:00:00.0","TA_AVG_1.5m","Temperatura media a 1.5m","12.3","ºC"
