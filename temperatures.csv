@@ -1538,4 +1538,5 @@
 "1","2024-02-29 00:00:00.0","TA_AVG_1.5m","Temperatura media a 1.5m","9.3","ºC"
 "1","2024-03-01 00:00:00.0","TA_AVG_1.5m","Temperatura media a 1.5m","9.7","ºC"
 "5","2024-03-02 00:00:00.0","TA_AVG_1.5m","Temperatura media a 1.5m","7.8","ºC"
-"9","2024-03-03 00:00:00.0","TA_AVG_1.5m","Temperatura media a 1.5m","-9999.0","ºC"
+"5","2024-03-03 00:00:00.0","TA_AVG_1.5m","Temperatura media a 1.5m","8.4","ºC"
+"9","2024-03-04 00:00:00.0","TA_AVG_1.5m","Temperatura media a 1.5m","-9999.0","ºC"
